@@ -39,7 +39,7 @@ const fetchJson = async (call: () => Promise<Response>) => {
 
 export const getLeaderboard = async () => {
   const response: LeaderboardResponse = await fetchJson(() =>
-    get(`/stats${lastUpdate ? `?from=${lastUpdate}}` : ""}`)
+    get(`/stats${lastUpdate ? `?from=${lastUpdate}` : ""}`)
   );
   lastUpdate = response.lastUpdate;
   return response;

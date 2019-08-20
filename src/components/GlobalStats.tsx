@@ -49,10 +49,10 @@ const GlobalStats = (props: GlobalStatsProps) => {
 
     const sortedTimeline = Object.keys(allTimeEntries).sort();
 
-    const newTimes: Date[] = [];
+    const newTimes: Date[] = [...times];
     const newValues = countryIds.reduce(
       (prev, current) => {
-        prev[current] = [];
+        prev[current] = netCO2ByCountry[current] || [];
         return prev;
       },
       {} as TimeSeriesByCountry
