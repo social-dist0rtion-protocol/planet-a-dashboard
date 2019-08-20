@@ -72,8 +72,14 @@ const GlobalStats = (props: GlobalStatsProps) => {
       });
     });
 
+    const co2 = Object.values(newValues).reduce((prev, current) => {
+      const [latest] = (current.length ? current : [0]).slice(-1);
+      return prev + latest;
+    }, 0);
+
     setTimes(newTimes);
     setNetCO2ByCountry(newValues);
+    setTotalCO2(co2);
   }, [props.netCO2History]);
 
   return (

@@ -1,6 +1,6 @@
 .app {
   padding: 1em;
-  background: url("./assets/earth.jpg") 50% / cover no-repeat;
+  background: #423d42 url("./assets/earth.jpg") 50% / cover no-repeat;
   min-height: 100vh;
 }
 
