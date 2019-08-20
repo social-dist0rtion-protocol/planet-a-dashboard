@@ -10,6 +10,8 @@ type LeaderboardProps = {
   emissions: Array<[string, string]>;
 };
 
+const unknownPlayer = { name: "Mr. Mysterious", event: "???" };
+
 const Leader = ({ player, balance }: { player: Player; balance: number }) => (
   <Row noGutters>
     <Col xs={8} className="player-name">
@@ -33,7 +35,7 @@ const Leaderboard = (props: LeaderboardProps) => (
         {props.trees.slice(0, 10).map(t => (
           <Leader
             key={t[0]}
-            player={props.players[t[0]]}
+            player={props.players[t[0]] || unknownPlayer}
             balance={parseInt(t[1], 10)}
           />
         ))}
@@ -50,7 +52,7 @@ const Leaderboard = (props: LeaderboardProps) => (
         {props.emissions.slice(0, 10).map(e => (
           <Leader
             key={e[0]}
-            player={props.players[e[0]]}
+            player={props.players[e[0]] || unknownPlayer}
             balance={parseInt(e[1], 10)}
           />
         ))}
