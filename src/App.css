@@ -1,0 +1,14 @@
+.app {
+  padding: 1em;
+  background: url("./assets/earth.jpg") 50% / cover no-repeat;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  padding: 0 0 0.125em;
+}
+
+body {
+  color: rgba(255, 255, 255, 0.9);
+}

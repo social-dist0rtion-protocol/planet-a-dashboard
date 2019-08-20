@@ -1,0 +1,27 @@
+.headers {
+  font-weight: 600;
+}
+
+.leaderboard h4:not(:first-child) {
+  margin-top: 1em;
+}
+
+.leaders {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.tree-huggers {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1em;
+}
+
+.polluters {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1em;
+}
+
+.player-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
