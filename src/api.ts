@@ -1,6 +1,6 @@
 import { LeaderboardResponse, Country } from "./types";
 
-const backend = "https://planet-a-backend.before.coffee/";
+const backend = "https://planet-a-backend.before.coffee";
 let lastUpdate: number;
 
 export const countries = {
