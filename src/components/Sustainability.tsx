@@ -5,20 +5,22 @@ import "./Sustainability.css";
 import { LeaderboardResponse, Country } from "../types";
 
 type SustainabilityProps = {
-  emissionsByCountry: LeaderboardResponse["emissionsByCountry"];
-  treesByCountry: LeaderboardResponse["treesByCountry"];
+  netCO2History: LeaderboardResponse["netCO2History"];
   countries: { [countryId: string]: Country };
 };
 
 const Sustainability = (props: SustainabilityProps) => {
-  const { countries, emissionsByCountry, treesByCountry } = props;
+  const { countries, netCO2History } = props;
 
   const labels: string[] = [];
   const data: number[] = [];
 
   Object.entries(countries).forEach(([id, c]) => {
     labels.push(c.name);
-    data.push(1 / Math.max(1, emissionsByCountry[id] - treesByCountry[id]));
+    const netCO2Values = netCO2History[id] || [[0, 0]];
+    data.push(
+      1 / Math.max(1, parseInt(netCO2Values[netCO2Values.length - 1][1], 10))
+    );
   });
 
   return (

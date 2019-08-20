@@ -6,8 +6,8 @@ import numeral from "numeral";
 
 type LeaderboardProps = {
   players: { [id: string]: Player };
-  trees: Array<[string, number]>;
-  emissions: Array<[string, number]>;
+  trees: Array<[string, string]>;
+  emissions: Array<[string, string]>;
 };
 
 const Leader = ({ player, balance }: { player: Player; balance: number }) => (
@@ -31,7 +31,11 @@ const Leaderboard = (props: LeaderboardProps) => (
           <Col>country</Col>
         </Row>
         {props.trees.slice(0, 10).map(t => (
-          <Leader key={t[0]} player={props.players[t[0]]} balance={t[1]} />
+          <Leader
+            key={t[0]}
+            player={props.players[t[0]]}
+            balance={parseInt(t[1], 10)}
+          />
         ))}
       </Col>
     </Row>
@@ -44,7 +48,11 @@ const Leaderboard = (props: LeaderboardProps) => (
           <Col>country</Col>
         </Row>
         {props.emissions.slice(0, 10).map(e => (
-          <Leader key={e[0]} player={props.players[e[0]]} balance={e[1]} />
+          <Leader
+            key={e[0]}
+            player={props.players[e[0]]}
+            balance={parseInt(e[1], 10)}
+          />
         ))}
       </Col>
     </Row>

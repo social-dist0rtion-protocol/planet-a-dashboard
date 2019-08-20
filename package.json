@@ -10,15 +10,13 @@
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
     "chartjs-plugin-annotation": "^0.5.7",
-    "leap-core": "^0.32.4",
     "numeral": "^2.0.6",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
-    "typescript": "3.5.3",
-    "web3": "1.0.0-beta.37"
+    "typescript": "3.5.3"
   },
   "scripts": {
     "start": "react-scripts start",

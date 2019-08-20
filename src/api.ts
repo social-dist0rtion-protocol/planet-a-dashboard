@@ -1,31 +1,46 @@
-import LeapAPI from "./api-leap";
-import FlaskAPI from "./api-flask";
+import { LeaderboardResponse, Country } from "./types";
 
-const useLeap = true;
-const proxy = useLeap ? LeapAPI : FlaskAPI;
-if (proxy) proxy.init();
+const backend = "http://localhost:8080";
+let lastUpdate: number;
 
 export const countries = {
-  usb: { id: 49155, name: "United States of Balloons" },
-  usa: { id: 49156, name: "United States of Ambrosia" }
+  usb: { id: "49155", name: "United States of Balloons", color: "red" },
+  usa: { id: "49156", name: "United States of Ambrosia", color: "blue" }
 };
 
 export const countriesById = Object.entries(countries)
-  .map(([k, v]) => ({ id: v.id, value: k }))
+  .map(([_, v]) => ({ id: v.id, value: v }))
   .reduce(
     (prev, current) => {
       prev[current.id] = current.value;
       return prev;
     },
     {} as {
-      [id: number]: string;
+      [id: string]: Country;
     }
   );
 
-export const setServer = proxy.setServer;
+const defaultHeaders = {
+  Accept: "application/json",
+  "Content-Type": "application/json"
+};
 
-export const getStatus = proxy.getStatus;
+const get = (url: string) =>
+  fetch(`${backend}${url}`, {
+    method: "GET",
+    headers: defaultHeaders
+  });
 
-export const getPlayerList = proxy.getPlayerList;
+const fetchJson = async (call: () => Promise<Response>) => {
+  const response = await call();
+  const json = await response.json();
+  return json;
+};
 
-export const getLeaderboard = proxy.getLeaderboard;
+export const getLeaderboard = async () => {
+  const response: LeaderboardResponse = await fetchJson(() =>
+    get(`/stats${lastUpdate ? `?from=${lastUpdate}}` : ""}`)
+  );
+  lastUpdate = response.lastUpdate;
+  return response;
+};

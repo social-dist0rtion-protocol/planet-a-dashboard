@@ -4,7 +4,7 @@ import Leaderboard from "./components/Leaderboard";
 import GlobalStats from "./components/GlobalStats";
 import Sustainability from "./components/Sustainability";
 import { useInterval } from "./effects";
-import { getLeaderboard, countries } from "./api";
+import { getLeaderboard, countries, countriesById } from "./api";
 import { LeaderboardResponse } from "./types";
 import "./App.css";
 
@@ -16,20 +16,22 @@ const App: React.FC = () => {
   const [emissions, setEmissions] = useState<LeaderboardResponse["emissions"]>(
     []
   );
-  const [emissionsByCountry, setEmissionsByCountry] = useState<
-    LeaderboardResponse["emissionsByCountry"]
-  >({});
-  const [treesByCountry, setTreesByCountry] = useState<
-    LeaderboardResponse["treesByCountry"]
-  >({});
+  const [netCO2History, setNetCO2History] = useState(
+    Object.keys(countriesById).reduce(
+      (prev, current) => {
+        prev[current] = [];
+        return prev;
+      },
+      {} as LeaderboardResponse["netCO2History"]
+    )
+  );
 
   const pollLeaderbord = async () => {
     const response = await getLeaderboard();
     setPlayers(response.players);
     setTrees(response.trees);
     setEmissions(response.emissions);
-    setTreesByCountry(response.treesByCountry);
-    setEmissionsByCountry(response.emissionsByCountry);
+    setNetCO2History(response.netCO2History);
   };
 
   // initialize the leaderboard by polling once right away
@@ -60,17 +62,10 @@ const App: React.FC = () => {
           <Leaderboard players={players} trees={trees} emissions={emissions} />
         </Col>
         <Col xs={6}>
-          <GlobalStats
-            emissionsByCountry={emissionsByCountry}
-            treesByCountry={treesByCountry}
-          />
+          <GlobalStats netCO2History={netCO2History} />
         </Col>
         <Col>
-          <Sustainability
-            countries={countries}
-            emissionsByCountry={emissionsByCountry}
-            treesByCountry={treesByCountry}
-          />
+          <Sustainability countries={countries} netCO2History={netCO2History} />
         </Col>
       </Row>
     </Container>

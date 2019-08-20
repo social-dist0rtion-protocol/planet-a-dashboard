@@ -1,18 +1,19 @@
 export type Player = {
-  avatar: string;
+  avatar?: string;
   name: string;
   event: string;
 };
 
 export type Country = {
-  id: number;
+  id: string;
   name: string;
+  color: string;
 };
 
 export type LeaderboardResponse = {
+  lastUpdate: number;
   players: { [id: string]: Player };
-  trees: Array<[string, number]>;
-  emissions: Array<[string, number]>;
-  emissionsByCountry: { [countryId: string]: number };
-  treesByCountry: { [countryId: string]: number };
+  trees: Array<[string, string]>;
+  emissions: Array<[string, string]>;
+  netCO2History: { [countryId: string]: Array<[string, string]> };
 };
