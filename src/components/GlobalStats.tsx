@@ -178,7 +178,7 @@ const GlobalStats = (props: GlobalStatsProps) => {
                   }
                 }}
                 width={300}
-                height={258}
+                height={400}
                 redraw
               />
             </Col>

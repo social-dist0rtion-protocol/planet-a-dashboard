@@ -12,3 +12,7 @@ h1 {
 body {
   color: rgba(255, 255, 255, 0.9);
 }
+
+.mainCol {
+  margin-bottom: 1em;
+}

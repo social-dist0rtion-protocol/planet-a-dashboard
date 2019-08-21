@@ -76,7 +76,7 @@ const Sustainability = (props: SustainabilityProps) => {
               }
             }}
             width={200}
-            height={150}
+            height={120}
             redraw
           />
         </Col>
@@ -126,7 +126,7 @@ const Sustainability = (props: SustainabilityProps) => {
               }
             }}
             width={200}
-            height={150}
+            height={120}
             redraw
           />
         </Col>

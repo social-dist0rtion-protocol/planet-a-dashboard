@@ -25,14 +25,17 @@ const get = (url: string) =>
 
 const fetchJson = async (call: () => Promise<Response>) => {
   const response = await call();
-  const json = await response.json();
-  return json;
+  if (response.status === 200) {
+    const json = await response.json();
+    return json;
+  }
+  return undefined;
 };
 
 export const getLeaderboard = async () => {
-  const response: LeaderboardResponse = await fetchJson(() =>
+  const response: LeaderboardResponse | undefined = await fetchJson(() =>
     get(`/stats${lastUpdate ? `?from=${lastUpdate}` : ""}`)
   );
-  lastUpdate = response.lastUpdate;
+  if (response) lastUpdate = response.lastUpdate;
   return response;
 };

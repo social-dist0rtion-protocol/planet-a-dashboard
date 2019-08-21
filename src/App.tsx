@@ -34,12 +34,14 @@ const App: React.FC = () => {
 
   const pollLeaderbord = async () => {
     const response = await getLeaderboard();
-    setPlayers(response.players);
-    setTrees(response.trees);
-    setEmissions(response.emissions);
-    setNetCO2History(response.netCO2History);
-    setCO2ByCountry(response.co2ByCountry);
-    setTreesByCountry(response.treesByCountry);
+    if (response) {
+      setPlayers(response.players);
+      setTrees(response.trees);
+      setEmissions(response.emissions);
+      setNetCO2History(response.netCO2History);
+      setCO2ByCountry(response.co2ByCountry);
+      setTreesByCountry(response.treesByCountry);
+    }
   };
 
   // initialize the leaderboard by polling once right away
@@ -66,13 +68,13 @@ const App: React.FC = () => {
         </Col>{" "}
       </Row>
       <Row>
-        <Col>
+        <Col className="mainCol">
           <Leaderboard players={players} trees={trees} emissions={emissions} />
         </Col>
-        <Col xs={6}>
+        <Col className="mainCol">
           <GlobalStats netCO2History={netCO2History} />
         </Col>
-        <Col>
+        <Col className="mainCol">
           <Sustainability
             countries={countriesById}
             netCO2History={netCO2History}
