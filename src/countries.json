@@ -1,0 +1,50 @@
+{
+  "49156": {
+    "id": "49156",
+    "name": "United States of Ambrosia",
+    "shortName": "USA",
+    "color": "#ffd200",
+    "textColor": "#876224",
+    "event": "eth2"
+  },
+  "49155": {
+    "id": "49155",
+    "name": "United States of Balloons",
+    "shortName": "USB",
+    "color": "#ff0000",
+    "textColor": "#750000",
+    "event": "eth2"
+  },
+  "49160": {
+    "id": "49160",
+    "name": "Pollutistan",
+    "shortName": "PLAN",
+    "color": "#0000ff",
+    "textColor": "#000065",
+    "event": "eth2"
+  },
+  "49161": {
+    "id": "49161",
+    "name": "New Smogland",
+    "shortName": "SMOG",
+    "color": "#9aba00",
+    "textColor": "#5b7500",
+    "event": "ccc"
+  },
+  "49162": {
+    "id": "49162",
+    "name": "Democratic Repulic of Deforestation",
+    "shortName": "DRED",
+    "color": "#ffc600",
+    "textColor": "#9d6d1d",
+    "event": "ccc"
+  },
+  "49163": {
+    "id": "49163",
+    "name": "Cataclysmia",
+    "shortName": "CASM",
+    "color": "#0176bb",
+    "textColor": "#01436c",
+    "event": "ccc"
+  }
+}

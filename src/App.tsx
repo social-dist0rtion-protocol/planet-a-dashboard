@@ -4,7 +4,7 @@ import Leaderboard from "./components/Leaderboard";
 import GlobalStats from "./components/GlobalStats";
 import Sustainability from "./components/Sustainability";
 import { useInterval } from "./effects";
-import { getLeaderboard, countries, countriesById } from "./api";
+import { getLeaderboard, countriesById } from "./api";
 import { LeaderboardResponse } from "./types";
 import "./App.css";
 
@@ -25,6 +25,12 @@ const App: React.FC = () => {
       {} as LeaderboardResponse["netCO2History"]
     )
   );
+  const [co2ByCountry, setCO2ByCountry] = useState<
+    LeaderboardResponse["co2ByCountry"]
+  >({});
+  const [treesByCountry, setTreesByCountry] = useState<
+    LeaderboardResponse["treesByCountry"]
+  >({});
 
   const pollLeaderbord = async () => {
     const response = await getLeaderboard();
@@ -32,6 +38,8 @@ const App: React.FC = () => {
     setTrees(response.trees);
     setEmissions(response.emissions);
     setNetCO2History(response.netCO2History);
+    setCO2ByCountry(response.co2ByCountry);
+    setTreesByCountry(response.treesByCountry);
   };
 
   // initialize the leaderboard by polling once right away
@@ -65,7 +73,11 @@ const App: React.FC = () => {
           <GlobalStats netCO2History={netCO2History} />
         </Col>
         <Col>
-          <Sustainability countries={countries} netCO2History={netCO2History} />
+          <Sustainability
+            countries={countriesById}
+            netCO2History={netCO2History}
+            treesByCountry={treesByCountry}
+          />
         </Col>
       </Row>
     </Container>

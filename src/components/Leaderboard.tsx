@@ -1,8 +1,9 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Badge, Col, Row } from "react-bootstrap";
 import "./Leaderboard.css";
 import { Player } from "../types";
 import numeral from "numeral";
+import { countriesById } from "../api";
 
 type LeaderboardProps = {
   players: { [id: string]: Player };
@@ -14,11 +15,22 @@ const unknownPlayer = { name: "Mr. Mysterious", event: "???" };
 
 const Leader = ({ player, balance }: { player: Player; balance: number }) => (
   <Row noGutters>
-    <Col xs={8} className="player-name">
-      {player.name || "Anonymous"}
+    <Col xs={10} className="player-name">
+      <Badge
+        pill
+        style={{
+          backgroundColor: (
+            countriesById[player.countryId] || { color: "white" }
+          ).color,
+          color: (countriesById[player.countryId] || { textColor: "#333333" })
+            .textColor
+        }}
+      >
+        {(countriesById[player.countryId] || { event: "ext" }).event}
+      </Badge>{" "}
+      {player.name || "Mr. Anonymous"}
     </Col>
     <Col>{numeral(balance).format("0a")}</Col>
-    <Col>{player.event}</Col>
   </Row>
 );
 
@@ -28,9 +40,8 @@ const Leaderboard = (props: LeaderboardProps) => (
     <Row className="tree-huggers" noGutters>
       <Col>
         <Row className="headers" noGutters>
-          <Col xs={8}>name</Col>
+          <Col xs={10}>name</Col>
           <Col>CO₂ (Mt)</Col>
-          <Col>country</Col>
         </Row>
         {props.trees.slice(0, 10).map(t => (
           <Leader
@@ -45,9 +56,8 @@ const Leaderboard = (props: LeaderboardProps) => (
     <Row className="polluters" noGutters>
       <Col>
         <Row className="headers" noGutters>
-          <Col xs={8}>name</Col>
+          <Col xs={10}>name</Col>
           <Col>CO₂ (Mt)</Col>
-          <Col>country</Col>
         </Row>
         {props.emissions.slice(0, 10).map(e => (
           <Leader

@@ -1,24 +1,16 @@
 import { LeaderboardResponse, Country } from "./types";
+import countryList from "./countries.json";
 
-const backend = "https://planet-a-backend.before.coffee";
+const env = process.env.NODE_ENV || "development";
+
+const backend =
+  env === "development"
+    ? "http://localhost:8080"
+    : "https://planet-a-backend.before.coffee";
+
 let lastUpdate: number;
 
-export const countries = {
-  usb: { id: "49155", name: "United States of Balloons", color: "red" },
-  usa: { id: "49156", name: "United States of Ambrosia", color: "blue" }
-};
-
-export const countriesById = Object.entries(countries)
-  .map(([_, v]) => ({ id: v.id, value: v }))
-  .reduce(
-    (prev, current) => {
-      prev[current.id] = current.value;
-      return prev;
-    },
-    {} as {
-      [id: string]: Country;
-    }
-  );
+export const countriesById: { [id: string]: Country } = countryList;
 
 const defaultHeaders = {
   Accept: "application/json",

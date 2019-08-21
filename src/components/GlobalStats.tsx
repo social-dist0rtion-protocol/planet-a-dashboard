@@ -1,4 +1,3 @@
-import numeral from "numeral";
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Line, defaults } from "react-chartjs-2";
@@ -65,7 +64,9 @@ const GlobalStats = (props: GlobalStatsProps) => {
         const newValuesForCountry = newValues[id];
         let newValue = allTimeEntries[t][id];
         if (!newValue) {
-          const [latest] = (newValuesForCountry || [0]).slice(-1);
+          const [latest] = (
+            (newValuesForCountry.length && newValuesForCountry) || [0]
+          ).slice(-1);
           newValue = latest;
         }
         newValuesForCountry.push(newValue);
@@ -73,7 +74,7 @@ const GlobalStats = (props: GlobalStatsProps) => {
     });
 
     const co2 = Object.values(newValues).reduce((prev, current) => {
-      const [latest] = (current.length ? current : [0]).slice(-1);
+      const [latest] = current.slice(-1);
       return prev + latest;
     }, 0);
 
@@ -184,7 +185,8 @@ const GlobalStats = (props: GlobalStatsProps) => {
           </Row>
           <Row className="current">
             <Col>
-              Current CO₂ levels: <span className="bold">{totalCO2}</span> Mt
+              Current CO₂ levels: <span className="bold">{totalCO2 || 0}</span>{" "}
+              Mt
             </Col>
           </Row>
         </Col>
