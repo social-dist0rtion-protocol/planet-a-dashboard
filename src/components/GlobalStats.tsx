@@ -1,3 +1,4 @@
+import numeral from "numeral";
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Line, defaults } from "react-chartjs-2";
@@ -31,6 +32,7 @@ const backgroundColors = Object.values(countriesById).reduce(
 
 type GlobalStatsProps = {
   netCO2History: LeaderboardResponse["netCO2History"];
+  goeMillis: number;
 };
 
 type TimeSeriesByCountry = { [id: string]: number[] };
@@ -196,9 +198,6 @@ const GlobalStats = (props: GlobalStatsProps) => {
                         }
                       }
                     ]
-                  },
-                  patternomaly: {
-                    drawTime: "beforeDatasetsDraw"
                   }
                 }}
                 width={300}
@@ -212,6 +211,12 @@ const GlobalStats = (props: GlobalStatsProps) => {
               Current CO₂ levels: <span className="bold">{totalCO2 || 0}</span>{" "}
               Mt
             </Col>
+          </Row>
+          <Row className="goe">
+            Göllars circulating:{"  "}
+            <span className="bold">
+              ₲{numeral(props.goeMillis / 1000).format("0.00")}
+            </span>
           </Row>
         </Col>
       </Row>

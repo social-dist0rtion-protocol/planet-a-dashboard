@@ -8,7 +8,7 @@ import { getLeaderboard, countriesById } from "./api";
 import { LeaderboardResponse } from "./types";
 import "./App.css";
 
-const POLL_INTERVAL_SECONDS = 10;
+const POLL_INTERVAL_SECONDS = 15;
 
 const App: React.FC = () => {
   const [players, setPlayers] = useState<LeaderboardResponse["players"]>({});
@@ -31,6 +31,7 @@ const App: React.FC = () => {
   const [treesByCountry, setTreesByCountry] = useState<
     LeaderboardResponse["treesByCountry"]
   >({});
+  const [goeMillis, setGoeMillis] = useState(0);
 
   const pollLeaderbord = async () => {
     const response = await getLeaderboard();
@@ -41,6 +42,7 @@ const App: React.FC = () => {
       setNetCO2History(response.netCO2History);
       setCO2ByCountry(response.co2ByCountry);
       setTreesByCountry(response.treesByCountry);
+      setGoeMillis(response.goeMillisCirculating);
     }
   };
 
@@ -72,7 +74,7 @@ const App: React.FC = () => {
           <Leaderboard players={players} trees={trees} emissions={emissions} />
         </Col>
         <Col className="mainCol">
-          <GlobalStats netCO2History={netCO2History} />
+          <GlobalStats netCO2History={netCO2History} goeMillis={goeMillis} />
         </Col>
         <Col className="mainCol">
           <Sustainability

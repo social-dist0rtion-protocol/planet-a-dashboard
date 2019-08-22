@@ -16,6 +16,7 @@ export type Country = {
 
 export type LeaderboardResponse = {
   lastUpdate: number;
+  goeMillisCirculating: number;
   players: { [id: string]: Player };
   trees: Array<[string, string]>;
   emissions: Array<[string, string]>;

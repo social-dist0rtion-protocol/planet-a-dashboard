@@ -4,9 +4,13 @@
 }
 
 .current,
-.beer {
+.goe {
   font-size: larger;
   text-align: center;
+  justify-content: center;
+}
+
+.goe {
   margin-bottom: 1em;
 }
 
