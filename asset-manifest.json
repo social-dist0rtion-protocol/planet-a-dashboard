@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/planet-a-dashboard/static/css/main.be908bf4.chunk.css",
-    "main.js": "/planet-a-dashboard/static/js/main.3ef009c3.chunk.js",
-    "main.js.map": "/planet-a-dashboard/static/js/main.3ef009c3.chunk.js.map",
-    "runtime~main.js": "/planet-a-dashboard/static/js/runtime~main.8e20942b.js",
-    "runtime~main.js.map": "/planet-a-dashboard/static/js/runtime~main.8e20942b.js.map",
-    "static/js/2.3e3fd160.chunk.js": "/planet-a-dashboard/static/js/2.3e3fd160.chunk.js",
-    "static/js/2.3e3fd160.chunk.js.map": "/planet-a-dashboard/static/js/2.3e3fd160.chunk.js.map",
-    "index.html": "/planet-a-dashboard/index.html",
-    "precache-manifest.a70351e7531a7cc8565c45272d666ffd.js": "/planet-a-dashboard/precache-manifest.a70351e7531a7cc8565c45272d666ffd.js",
-    "service-worker.js": "/planet-a-dashboard/service-worker.js",
-    "static/css/main.be908bf4.chunk.css.map": "/planet-a-dashboard/static/css/main.be908bf4.chunk.css.map",
-    "static/media/App.css": "/planet-a-dashboard/static/media/earth.a782cef4.jpg"
+    "main.css": "/static/css/main.50ed93ee.chunk.css",
+    "main.js": "/static/js/main.803eebf3.chunk.js",
+    "main.js.map": "/static/js/main.803eebf3.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/js/2.fdedf443.chunk.js": "/static/js/2.fdedf443.chunk.js",
+    "static/js/2.fdedf443.chunk.js.map": "/static/js/2.fdedf443.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.01999bef7b18f9c5a97a0a83506e622f.js": "/precache-manifest.01999bef7b18f9c5a97a0a83506e622f.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.50ed93ee.chunk.css.map": "/static/css/main.50ed93ee.chunk.css.map",
+    "static/media/App.css": "/static/media/earth.a782cef4.jpg"
   }
 }
