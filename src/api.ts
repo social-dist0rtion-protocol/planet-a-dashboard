@@ -3,10 +3,10 @@ import countryList from "./countries.json";
 
 const env = process.env.NODE_ENV || "development";
 
-const backend =
-  env === "development"
-    ? "http://localhost:8080"
-    : "https://planet-a-backend.before.coffee";
+const backend = "https://planet-a-backend.before.coffee";
+// env === "development"
+//   ? "http://localhost:8080"
+//   : "https://planet-a-backend.before.coffee";
 
 let lastUpdate: number;
 

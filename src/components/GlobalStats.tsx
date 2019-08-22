@@ -59,7 +59,14 @@ const GlobalStats = (props: GlobalStatsProps) => {
 
     const sortedTimeline = Object.keys(allTimeEntries).sort();
 
-    const newTimes: Date[] = [...times];
+    const newTimes = times.reduce(
+      (prev, current) => {
+        prev[(current.getTime() / 1000).toString()] = true;
+        return prev;
+      },
+      {} as { [date: string]: boolean }
+    );
+
     const newValues = countryIds.reduce(
       (prev, current) => {
         prev[current] = netCO2ByCountry[current] || [];
@@ -70,7 +77,7 @@ const GlobalStats = (props: GlobalStatsProps) => {
 
     // fill "holes" for each country
     sortedTimeline.forEach(t => {
-      newTimes.push(new Date(parseInt(t, 10) * 1000));
+      newTimes[t] = true;
       countryIds.forEach(id => {
         const newValuesForCountry = newValues[id];
         let newValue = allTimeEntries[t][id];
@@ -89,7 +96,11 @@ const GlobalStats = (props: GlobalStatsProps) => {
       return prev + latest;
     }, 0);
 
-    setTimes(newTimes);
+    setTimes(
+      Object.keys(newTimes)
+        .sort()
+        .map(t => new Date(parseInt(t, 10) * 1000))
+    );
     setNetCO2ByCountry(newValues);
     setTotalCO2(co2);
   }, [props.netCO2History]);
@@ -185,6 +196,9 @@ const GlobalStats = (props: GlobalStatsProps) => {
                         }
                       }
                     ]
+                  },
+                  patternomaly: {
+                    drawTime: "beforeDatasetsDraw"
                   }
                 }}
                 width={300}
