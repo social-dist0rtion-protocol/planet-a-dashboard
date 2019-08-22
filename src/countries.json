@@ -1,16 +1,17 @@
 {
-  "49156": {
-    "id": "49156",
-    "name": "United States of Ambrosia",
-    "shortName": "USA",
+  "49164": {
+    "id": "49164",
+    "name": "Tornayda",
+    "shortName": "TORN",
     "color": "#ffd200",
+    "pattern": "disc",
     "textColor": "#876224",
     "event": "eth2"
   },
-  "49155": {
-    "id": "49155",
-    "name": "United States of Balloons",
-    "shortName": "USB",
+  "49165": {
+    "id": "49165",
+    "name": "Kingdom of Heatwave",
+    "shortName": "HEAT",
     "color": "#ff0000",
     "textColor": "#750000",
     "event": "eth2"
@@ -20,6 +21,7 @@
     "name": "Pollutistan",
     "shortName": "PLAN",
     "color": "#0000ff",
+    "pattern": "plus",
     "textColor": "#000065",
     "event": "eth2"
   },

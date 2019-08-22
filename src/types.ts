@@ -11,7 +11,7 @@ export type Country = {
   color: string;
   textColor: string;
   event: string;
-  pattern?: "disc" | "cross" | "plus";
+  pattern?: string;
 };
 
 export type LeaderboardResponse = {

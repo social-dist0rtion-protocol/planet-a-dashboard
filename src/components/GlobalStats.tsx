@@ -23,7 +23,7 @@ ChartConf.legend.labels.fontColor = "rgba(255, 255, 255, 0.8)";
 const backgroundColors = Object.values(countriesById).reduce(
   (prev, current) => {
     prev[current.id] = current.pattern
-      ? draw(current.pattern, current.color)
+      ? draw(current.pattern as "disc" | "plus", current.color)
       : current.color;
     return prev;
   },
