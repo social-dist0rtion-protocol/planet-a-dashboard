@@ -4,6 +4,7 @@ import { Line, defaults } from "react-chartjs-2";
 import { LeaderboardResponse } from "../types";
 import "./GlobalStats.css";
 import "chartjs-plugin-annotation";
+import { draw } from "patternomaly";
 import { countriesById } from "../api";
 
 export const MIN_THRESHOLD = 420000;
@@ -17,6 +18,16 @@ ChartConf.elements.point.borderColor = "rgba(255, 255, 255, 0.8)";
 ChartConf.elements.line.borderColor = "rgba(255, 255, 255, 0.8)";
 ChartConf.elements.line.borderColor = "rgba(255, 255, 255, 0.8)";
 ChartConf.legend.labels.fontColor = "rgba(255, 255, 255, 0.8)";
+
+const backgroundColors = Object.values(countriesById).reduce(
+  (prev, current) => {
+    prev[current.id] = current.pattern
+      ? draw(current.pattern, current.color)
+      : current.color;
+    return prev;
+  },
+  {} as { [countryId: string]: string | CanvasPattern }
+);
 
 type GlobalStatsProps = {
   netCO2History: LeaderboardResponse["netCO2History"];
@@ -98,7 +109,7 @@ const GlobalStats = (props: GlobalStatsProps) => {
                       label: countriesById[countryId].name,
                       data: series,
                       pointBorderWidth: 0,
-                      backgroundColor: countriesById[countryId].color
+                      backgroundColor: backgroundColors[countryId]
                     })
                   )
                 }}
@@ -106,7 +117,6 @@ const GlobalStats = (props: GlobalStatsProps) => {
                   animation: { duration: 0 },
                   showLine: true,
                   spanGaps: true,
-                  cubicInterpolationMode: "monotone",
                   scales: {
                     xAxes: [
                       {

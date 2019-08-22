@@ -60,7 +60,7 @@ const App: React.FC = () => {
             <span role="img" aria-label="globe">
               🌍
             </span>{" "}
-            Tragedy of the CO₂mmons{" "}
+            Planet A{" "}
             <span role="img" aria-label="globe">
               🌳
             </span>
@@ -77,7 +77,7 @@ const App: React.FC = () => {
         <Col className="mainCol">
           <Sustainability
             countries={countriesById}
-            netCO2History={netCO2History}
+            co2ByCountry={co2ByCountry}
             treesByCountry={treesByCountry}
           />
         </Col>

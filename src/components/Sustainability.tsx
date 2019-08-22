@@ -2,36 +2,30 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
 import "./Sustainability.css";
-import { LeaderboardResponse, Country } from "../types";
+import { Country } from "../types";
 
 type SustainabilityProps = {
-  netCO2History: LeaderboardResponse["netCO2History"];
   countries: { [countryId: string]: Country };
+  co2ByCountry: { [countrId: string]: string };
   treesByCountry: { [countryId: string]: string };
 };
 
 const Sustainability = (props: SustainabilityProps) => {
-  const { countries, netCO2History, treesByCountry } = props;
+  const { countries, co2ByCountry, treesByCountry } = props;
 
   const labels: string[] = [];
-  const data: number[] = [];
+  const co2: number[] = [];
   const trees: number[] = [];
 
   Object.entries(countries).forEach(([id, c]) => {
     labels.push(c.shortName);
-    const netCO2Values = netCO2History[id] || [[0, 0]];
-    if (netCO2Values.length) {
-      const [latestCO2] = netCO2Values.slice(-1);
-      data.push(1 / Math.max(1, parseInt(latestCO2[1], 10)));
-    } else {
-      data.push(0);
-    }
+    co2.push(parseInt(co2ByCountry[id] || "0", 10));
     trees.push(parseInt(treesByCountry[id] || "0", 10));
   });
 
   return (
     <>
-      <h4>Sustainibility</h4>
+      <h4>CO₂ emitted</h4>
       <Row className="sustainability" noGutters>
         <Col>
           <Bar
@@ -39,9 +33,9 @@ const Sustainability = (props: SustainabilityProps) => {
               labels,
               datasets: [
                 {
-                  label: "sustainability index",
-                  data,
-                  backgroundColor: "rgba(80, 200, 120, 0.6)"
+                  label: "CO₂",
+                  data: co2,
+                  backgroundColor: "rgba(200, 200, 200, 0.6)"
                 }
               ]
             }}

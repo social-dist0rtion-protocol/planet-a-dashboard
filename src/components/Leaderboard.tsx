@@ -52,7 +52,7 @@ const Leaderboard = (props: LeaderboardProps) => (
         ))}
       </Col>
     </Row>
-    <h4>Worst polluters - CO₂ emitted</h4>
+    <h4>Biggest polluters - CO₂ emitted</h4>
     <Row className="polluters" noGutters>
       <Col>
         <Row className="headers" noGutters>
