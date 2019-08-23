@@ -5,7 +5,7 @@ import "./Sustainability.css";
 import { Country } from "../types";
 
 type SustainabilityProps = {
-  countries: { [countryId: string]: Country };
+  countries: Map<string, Country>;
   co2ByCountry: { [countrId: string]: string };
   treesByCountry: { [countryId: string]: string };
 };
@@ -17,7 +17,7 @@ const Sustainability = (props: SustainabilityProps) => {
   const co2: number[] = [];
   const trees: number[] = [];
 
-  Object.entries(countries).forEach(([id, c]) => {
+  countries.forEach((c, id) => {
     labels.push(c.shortName);
     co2.push(parseInt(co2ByCountry[id] || "0", 10));
     trees.push(parseInt(treesByCountry[id] || "0", 10));

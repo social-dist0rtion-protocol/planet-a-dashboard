@@ -2,7 +2,7 @@ import numeral from "numeral";
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Line, defaults } from "react-chartjs-2";
-import { LeaderboardResponse } from "../types";
+import { LeaderboardResponse, Country } from "../types";
 import "./GlobalStats.css";
 import "chartjs-plugin-annotation";
 import { draw } from "patternomaly";
@@ -31,17 +31,18 @@ const backgroundColors = Object.values(countriesById).reduce(
 );
 
 type GlobalStatsProps = {
+  countries: Map<string, Country>;
   netCO2History: LeaderboardResponse["netCO2History"];
   goeMillis: number;
 };
 
-type TimeSeriesByCountry = { [id: string]: number[] };
+type TimeSeriesByCountry = Map<string, number[]>;
 
 const GlobalStats = (props: GlobalStatsProps) => {
-  const countryIds = Object.keys(countriesById);
+  const countryIds = Array.from(props.countries.keys());
   const [times, setTimes] = useState<Date[]>([]);
   const [netCO2ByCountry, setNetCO2ByCountry] = useState<TimeSeriesByCountry>(
-    {}
+    new Map()
   );
   const [totalCO2, setTotalCO2] = useState(0);
 
@@ -69,19 +70,16 @@ const GlobalStats = (props: GlobalStatsProps) => {
       {} as { [date: string]: boolean }
     );
 
-    const newValues = countryIds.reduce(
-      (prev, current) => {
-        prev[current] = netCO2ByCountry[current] || [];
-        return prev;
-      },
-      {} as TimeSeriesByCountry
-    );
+    const newValues = new Map();
+    for (let countryId of props.countries.keys()) {
+      newValues.set(countryId, netCO2ByCountry.get(countryId) || []);
+    }
 
     // fill "holes" for each country
     sortedTimeline.forEach(t => {
       newTimes[t] = true;
       countryIds.forEach(id => {
-        const newValuesForCountry = newValues[id];
+        const newValuesForCountry = newValues.get(id) || [];
         let newValue = allTimeEntries[t][id];
         if (!newValue) {
           const [latest] = (
@@ -117,7 +115,7 @@ const GlobalStats = (props: GlobalStatsProps) => {
               <Line
                 data={{
                   labels: times,
-                  datasets: Object.entries(netCO2ByCountry).map(
+                  datasets: Array.from(netCO2ByCountry.entries()).map(
                     ([countryId, series]) => ({
                       label: countriesById[countryId].name,
                       data: series,

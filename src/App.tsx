@@ -10,6 +10,24 @@ import "./App.css";
 
 const POLL_INTERVAL_SECONDS = 15;
 
+// use a Map so that insertion order is used in traversals
+const countries = new Map(
+  // group countries by event, sort by short name lexicographically
+  Object.entries(countriesById).sort(([_, c1], [__, c2]) =>
+    c1.event > c2.event
+      ? 1
+      : c1.event === c2.event
+      ? c1.shortName > c2.shortName
+        ? 1
+        : c1.shortName === c2.shortName
+        ? 0
+        : -1
+      : -1
+  )
+);
+
+console.log(countries);
+
 const App: React.FC = () => {
   const [players, setPlayers] = useState<LeaderboardResponse["players"]>({});
   const [trees, setTrees] = useState<LeaderboardResponse["trees"]>([]);
@@ -17,7 +35,7 @@ const App: React.FC = () => {
     []
   );
   const [netCO2History, setNetCO2History] = useState(
-    Object.keys(countriesById).reduce(
+    Object.keys(countries).reduce(
       (prev, current) => {
         prev[current] = [];
         return prev;
@@ -71,14 +89,23 @@ const App: React.FC = () => {
       </Row>
       <Row>
         <Col className="mainCol">
-          <Leaderboard players={players} trees={trees} emissions={emissions} />
+          <Leaderboard
+            countries={countries}
+            players={players}
+            trees={trees}
+            emissions={emissions}
+          />
         </Col>
         <Col className="mainCol">
-          <GlobalStats netCO2History={netCO2History} goeMillis={goeMillis} />
+          <GlobalStats
+            countries={countries}
+            netCO2History={netCO2History}
+            goeMillis={goeMillis}
+          />
         </Col>
         <Col className="mainCol">
           <Sustainability
-            countries={countriesById}
+            countries={countries}
             co2ByCountry={co2ByCountry}
             treesByCountry={treesByCountry}
           />

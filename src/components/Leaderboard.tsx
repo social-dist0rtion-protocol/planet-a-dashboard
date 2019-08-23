@@ -1,11 +1,11 @@
 import React from "react";
 import { Badge, Col, Row } from "react-bootstrap";
 import "./Leaderboard.css";
-import { Player } from "../types";
+import { Player, Country } from "../types";
 import numeral from "numeral";
-import { countriesById } from "../api";
 
 type LeaderboardProps = {
+  countries: Map<string, Country>;
   players: { [id: string]: Player };
   trees: Array<[string, string]>;
   emissions: Array<[string, string]>;
@@ -13,20 +13,28 @@ type LeaderboardProps = {
 
 const unknownPlayer = { name: "Mr. Mysterious", event: "???" };
 
-const Leader = ({ player, balance }: { player: Player; balance: number }) => (
+const Leader = ({
+  countries,
+  player,
+  balance
+}: {
+  countries: LeaderboardProps["countries"];
+  player: Player;
+  balance: number;
+}) => (
   <Row noGutters>
     <Col xs={10} className="player-name">
       <Badge
         pill
         style={{
           backgroundColor: (
-            countriesById[player.countryId] || { color: "white" }
+            countries.get(player.countryId) || { color: "white" }
           ).color,
-          color: (countriesById[player.countryId] || { textColor: "#333333" })
+          color: (countries.get(player.countryId) || { textColor: "#333333" })
             .textColor
         }}
       >
-        {(countriesById[player.countryId] || { event: "ext" }).event}
+        {(countries.get(player.countryId) || { event: "ext" }).event}
       </Badge>{" "}
       {player.name || "Mr. Anonymous"}
     </Col>
@@ -46,6 +54,7 @@ const Leaderboard = (props: LeaderboardProps) => (
         {props.trees.slice(0, 10).map(t => (
           <Leader
             key={t[0]}
+            countries={props.countries}
             player={props.players[t[0]] || unknownPlayer}
             balance={parseInt(t[1], 10)}
           />
@@ -62,6 +71,7 @@ const Leaderboard = (props: LeaderboardProps) => (
         {props.emissions.slice(0, 10).map(e => (
           <Leader
             key={e[0]}
+            countries={props.countries}
             player={props.players[e[0]] || unknownPlayer}
             balance={parseInt(e[1], 10)}
           />
