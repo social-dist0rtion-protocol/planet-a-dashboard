@@ -65,7 +65,7 @@ const Sustainability = (props: SustainabilityProps) => {
                       color: "rgba(255, 255, 255, 0.2)"
                     },
                     ticks: {
-                      suggestedMin: 0,
+                      suggestedMin: 500000,
                       fontColor: "rgba(255, 255, 255, 0.8)"
                     }
                   }

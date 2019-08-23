@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { draw } from "patternomaly";
 import Leaderboard from "./components/Leaderboard";
@@ -59,9 +59,13 @@ const App: React.FC = () => {
     LeaderboardResponse["treesByCountry"]
   >({});
   const [goeMillis, setGoeMillis] = useState(0);
+  const lastPolled = useRef(new Date("1984-02-24T15:54:00"));
 
   const pollLeaderbord = async () => {
     const response = await getLeaderboard();
+    if (lastPolled.current) {
+      lastPolled.current.setTime(new Date().valueOf());
+    }
     if (response) {
       setPlayers(response.players);
       setTrees(response.trees);
@@ -76,6 +80,24 @@ const App: React.FC = () => {
   // initialize the leaderboard by polling once right away
   useEffect(() => {
     pollLeaderbord();
+    const focusListener = () => {
+      if (document.visibilityState === "visible") {
+        if (
+          lastPolled.current &&
+          new Date().valueOf() - lastPolled.current.valueOf() >
+            POLL_INTERVAL_SECONDS * 1000
+        ) {
+          console.log(
+            `polling after getting back focus, lastUpdate was on ${lastPolled}`
+          );
+          pollLeaderbord();
+        }
+      }
+    };
+    document.addEventListener("visibilitychange", focusListener);
+    // unregister focus listener on cleanup
+    return () =>
+      document.removeEventListener("visibilitychange", focusListener);
   }, []);
 
   // start polling every POLL_INTERVAL_SECONDS... seconds
