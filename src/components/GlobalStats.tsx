@@ -8,9 +8,9 @@ import "chartjs-plugin-annotation";
 import { draw } from "patternomaly";
 import { countriesById } from "../api";
 
-export const MIN_THRESHOLD = 420000;
-export const MAX_THRESHOLD = 1170000;
-const MAX_Y = 1300000;
+export const MIN_THRESHOLD = 3420000;
+export const MAX_THRESHOLD = 4170000;
+const MAX_Y = 4300000;
 
 const ChartConf = (defaults as any).global;
 
@@ -44,7 +44,7 @@ const GlobalStats = (props: GlobalStatsProps) => {
   const [netCO2ByCountry, setNetCO2ByCountry] = useState<TimeSeriesByCountry>(
     new Map()
   );
-  const [totalCO2, setTotalCO2] = useState(0);
+  const [totalCO2, setTotalCO2] = useState(3000);
 
   useEffect(() => {
     const { netCO2History } = props;
@@ -91,10 +91,10 @@ const GlobalStats = (props: GlobalStatsProps) => {
       });
     });
 
-    const co2 = Object.values(newValues).reduce((prev, current) => {
+    const co2 = Array.from(newValues.values()).reduce((prev, current) => {
       const [latest] = current.slice(-1);
       return prev + latest;
-    }, 0);
+    }, 3000);
 
     setTimes(
       Object.keys(newTimes)
