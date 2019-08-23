@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { draw } from "patternomaly";
+import ReactPullLoad, { STATS } from "react-pullload";
 import Leaderboard from "./components/Leaderboard";
 import GlobalStats from "./components/GlobalStats";
 import Sustainability from "./components/Sustainability";
@@ -37,6 +38,8 @@ export const backgroundColors = Array.from(countries.values()).reduce(
   {} as { [countryId: string]: string | CanvasPattern }
 );
 
+const NoFooter = (props: any) => <div />;
+
 const App: React.FC = () => {
   const [players, setPlayers] = useState<LeaderboardResponse["players"]>({});
   const [trees, setTrees] = useState<LeaderboardResponse["trees"]>([]);
@@ -60,6 +63,8 @@ const App: React.FC = () => {
   >({});
   const [goeMillis, setGoeMillis] = useState(0);
   const lastPolled = useRef(new Date("1984-02-24T15:54:00"));
+  const [pullLoadAction, setPullLoadAction] = useState(STATS.init);
+  const [hasMore, setHasMore] = useState(false);
 
   const pollLeaderbord = async () => {
     const response = await getLeaderboard();
@@ -103,46 +108,71 @@ const App: React.FC = () => {
   // start polling every POLL_INTERVAL_SECONDS... seconds
   useInterval(pollLeaderbord, POLL_INTERVAL_SECONDS * 1000);
 
+  const handlePullAction = (action: STATS) => {
+    if (action !== pullLoadAction) {
+      if (action === STATS.refreshing) {
+        const refreshed = () => {
+          setPullLoadAction(STATS.refreshed);
+        };
+        pollLeaderbord()
+          .then(refreshed)
+          .catch(refreshed);
+      } else {
+        setPullLoadAction(action);
+      }
+    }
+  };
+
   return (
-    <Container className="app" fluid>
-      <Row>
-        <Col>
-          <h1>
-            <span role="img" aria-label="globe">
-              🌍
-            </span>{" "}
-            Planet A{" "}
-            <span role="img" aria-label="globe">
-              🌳
-            </span>
-          </h1>
-        </Col>{" "}
-      </Row>
-      <Row>
-        <Col className="mainCol" sm={12} lg={6} xl={4}>
-          <Leaderboard
-            countries={countries}
-            players={players}
-            trees={trees}
-            emissions={emissions}
-          />
-        </Col>
-        <Col className="mainCol" sm={12} lg={6} xl={4}>
-          <GlobalStats
-            countries={countries}
-            netCO2History={netCO2History}
-            goeMillis={goeMillis}
-          />
-        </Col>
-        <Col className="mainCol" sm={12} lg={6} xl={4}>
-          <Sustainability
-            countries={countries}
-            co2ByCountry={co2ByCountry}
-            treesByCountry={treesByCountry}
-          />
-        </Col>
-      </Row>
-    </Container>
+    <div className="app">
+      <ReactPullLoad
+        downEnough={100}
+        action={pullLoadAction}
+        handleAction={handlePullAction}
+        hasMore={false}
+        FooterNode={NoFooter}
+      >
+        <Container fluid>
+          <Row>
+            <Col>
+              <h1>
+                <span role="img" aria-label="globe">
+                  🌍
+                </span>{" "}
+                Planet A{" "}
+                <span role="img" aria-label="globe">
+                  🌳
+                </span>
+              </h1>
+            </Col>{" "}
+          </Row>
+          <Row>
+            <Col className="mainCol" sm={12} lg={6} xl={4}>
+              <Leaderboard
+                countries={countries}
+                players={players}
+                trees={trees}
+                emissions={emissions}
+              />
+            </Col>
+            <Col className="mainCol" sm={12} lg={6} xl={4}>
+              <GlobalStats
+                countries={countries}
+                netCO2History={netCO2History}
+                goeMillis={goeMillis}
+              />
+            </Col>
+            <Col className="mainCol" sm={12} lg={6} xl={4}>
+              <Sustainability
+                countries={countries}
+                co2ByCountry={co2ByCountry}
+                treesByCountry={treesByCountry}
+              />
+            </Col>
+          </Row>
+        </Container>
+      </ReactPullLoad>
+    </div>
   );
 };
 
