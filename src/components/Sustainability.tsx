@@ -3,6 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
 import "./Sustainability.css";
 import { Country } from "../types";
+import { backgroundColors } from "../App";
 
 type SustainabilityProps = {
   countries: Map<string, Country>;
@@ -12,6 +13,7 @@ type SustainabilityProps = {
 
 const Sustainability = (props: SustainabilityProps) => {
   const { countries, co2ByCountry, treesByCountry } = props;
+  const countryIds = Array.from(countries.keys());
 
   const labels: string[] = [];
   const co2: number[] = [];
@@ -35,12 +37,13 @@ const Sustainability = (props: SustainabilityProps) => {
                 {
                   label: "CO₂",
                   data: co2,
-                  backgroundColor: "rgba(200, 200, 200, 0.6)"
+                  backgroundColor: countryIds.map(c => backgroundColors[c])
                 }
               ]
             }}
             options={{
               animation: { duration: 0 },
+              legend: { display: false },
               scales: {
                 xAxes: [
                   {
@@ -85,12 +88,13 @@ const Sustainability = (props: SustainabilityProps) => {
                 {
                   label: "trees",
                   data: trees,
-                  backgroundColor: "rgba(80, 200, 120, 0.6)"
+                  backgroundColor: countryIds.map(c => backgroundColors[c])
                 }
               ]
             }}
             options={{
               animation: { duration: 0 },
+              legend: { display: false },
               scales: {
                 xAxes: [
                   {

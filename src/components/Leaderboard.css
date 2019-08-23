@@ -25,3 +25,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.tooltip > .tooltip-inner {
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 0.9);
+}
+.tooltip .arrow::before {
+  border-right-color: rgba(255, 255, 255, 0.9);
+}

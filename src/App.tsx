@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { draw } from "patternomaly";
 import Leaderboard from "./components/Leaderboard";
 import GlobalStats from "./components/GlobalStats";
 import Sustainability from "./components/Sustainability";
@@ -26,7 +27,15 @@ const countries = new Map(
   )
 );
 
-console.log(countries);
+export const backgroundColors = Array.from(countries.values()).reduce(
+  (prev, current) => {
+    prev[current.id] = current.pattern
+      ? draw(current.pattern as "dot" | "dash", current.color)
+      : current.color;
+    return prev;
+  },
+  {} as { [countryId: string]: string | CanvasPattern }
+);
 
 const App: React.FC = () => {
   const [players, setPlayers] = useState<LeaderboardResponse["players"]>({});

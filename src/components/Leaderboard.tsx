@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Col, Row } from "react-bootstrap";
+import { Badge, Col, Row, OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./Leaderboard.css";
 import { Player, Country } from "../types";
 import numeral from "numeral";
@@ -24,19 +24,33 @@ const Leader = ({
 }) => (
   <Row noGutters>
     <Col xs={10} className="player-name">
-      <Badge
-        pill
-        style={{
-          backgroundColor: (
-            countries.get(player.countryId) || { color: "white" }
-          ).color,
-          color: (countries.get(player.countryId) || { textColor: "#333333" })
-            .textColor
-        }}
+      <OverlayTrigger
+        key={player.name}
+        placement="right"
+        overlay={
+          <Tooltip id={`tt-${player.name}`}>
+            {
+              (countries.get(player.countryId) || { name: "unknown country" })
+                .name
+            }
+          </Tooltip>
+        }
       >
-        {(countries.get(player.countryId) || { event: "ext" }).event}
-      </Badge>{" "}
-      {player.name || "Mr. Anonymous"}
+        <Badge
+          pill
+          style={{
+            backgroundColor: (
+              countries.get(player.countryId) || { color: "white" }
+            ).color,
+            color: "#eee"
+          }}
+        >
+          {`${(countries.get(player.countryId) || { event: "ext" }).event}-${(
+            countries.get(player.countryId) || { shortName: "xxx" }
+          ).shortName.toLowerCase()}`}
+        </Badge>
+      </OverlayTrigger>
+      {` ${player.name || "Mr. Anonymous"}`}
     </Col>
     <Col>{numeral(balance).format("0a")}</Col>
   </Row>

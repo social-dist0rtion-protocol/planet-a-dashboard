@@ -3,8 +3,7 @@
     "id": "49164",
     "name": "Tornayda",
     "shortName": "TORN",
-    "color": "#ffd200",
-    "pattern": "disc",
+    "color": "rgba(255, 210, 0, 0.6)",
     "textColor": "#876224",
     "event": "eth2"
   },
@@ -12,7 +11,7 @@
     "id": "49165",
     "name": "Kingdom of Heatwave",
     "shortName": "HEAT",
-    "color": "#ff0000",
+    "color": "rgba(255, 0, 0, 0.5)",
     "textColor": "#750000",
     "event": "eth2"
   },
@@ -20,8 +19,7 @@
     "id": "49160",
     "name": "Pollutistan",
     "shortName": "PLAN",
-    "color": "#0000ff",
-    "pattern": "plus",
+    "color": "rgba(0, 0, 255, 0.5)",
     "textColor": "#000065",
     "event": "eth2"
   },
@@ -29,7 +27,7 @@
     "id": "49161",
     "name": "New Smogland",
     "shortName": "SMOG",
-    "color": "#9aba00",
+    "color": "rgba(154, 186, 0, 0.6)",
     "textColor": "#5b7500",
     "event": "ccc"
   },
@@ -37,15 +35,17 @@
     "id": "49162",
     "name": "Democratic Repulic of Deforestation",
     "shortName": "DRED",
-    "color": "#ffc600",
+    "color": "rgba(255, 198, 0, 0.55)",
     "textColor": "#9d6d1d",
+    "pattern": "dot",
     "event": "ccc"
   },
   "49163": {
     "id": "49163",
     "name": "Cataclysmia",
     "shortName": "CASM",
-    "color": "#0176bb",
+    "color": "rgba(1, 118, 187, 0.45)",
+    "pattern": "dash",
     "textColor": "#01436c",
     "event": "ccc"
   }

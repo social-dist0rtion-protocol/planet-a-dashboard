@@ -5,8 +5,8 @@ import { Line, defaults } from "react-chartjs-2";
 import { LeaderboardResponse, Country } from "../types";
 import "./GlobalStats.css";
 import "chartjs-plugin-annotation";
-import { draw } from "patternomaly";
 import { countriesById } from "../api";
+import { backgroundColors } from "../App";
 
 export const MIN_THRESHOLD = 3420000;
 export const MAX_THRESHOLD = 4170000;
@@ -19,16 +19,6 @@ ChartConf.elements.point.borderColor = "rgba(255, 255, 255, 0.8)";
 ChartConf.elements.line.borderColor = "rgba(255, 255, 255, 0.8)";
 ChartConf.elements.line.borderColor = "rgba(255, 255, 255, 0.8)";
 ChartConf.legend.labels.fontColor = "rgba(255, 255, 255, 0.8)";
-
-const backgroundColors = Object.values(countriesById).reduce(
-  (prev, current) => {
-    prev[current.id] = current.pattern
-      ? draw(current.pattern as "disc" | "plus", current.color)
-      : current.color;
-    return prev;
-  },
-  {} as { [countryId: string]: string | CanvasPattern }
-);
 
 type GlobalStatsProps = {
   countries: Map<string, Country>;
