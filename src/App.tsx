@@ -119,7 +119,7 @@ const App: React.FC = () => {
         </Col>{" "}
       </Row>
       <Row>
-        <Col className="mainCol">
+        <Col className="mainCol" sm={12} lg={6} xl={4}>
           <Leaderboard
             countries={countries}
             players={players}
@@ -127,14 +127,14 @@ const App: React.FC = () => {
             emissions={emissions}
           />
         </Col>
-        <Col className="mainCol">
+        <Col className="mainCol" sm={12} lg={6} xl={4}>
           <GlobalStats
             countries={countries}
             netCO2History={netCO2History}
             goeMillis={goeMillis}
           />
         </Col>
-        <Col className="mainCol">
+        <Col className="mainCol" sm={12} lg={6} xl={4}>
           <Sustainability
             countries={countries}
             co2ByCountry={co2ByCountry}
