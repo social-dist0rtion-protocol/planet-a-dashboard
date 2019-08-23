@@ -17,7 +17,6 @@ const ChartConf = (defaults as any).global;
 ChartConf.elements.point.backgroundColor = "rgba(255, 255, 255, 0.8)";
 ChartConf.elements.point.borderColor = "rgba(255, 255, 255, 0.8)";
 ChartConf.elements.line.borderColor = "rgba(255, 255, 255, 0.8)";
-ChartConf.elements.line.borderColor = "rgba(255, 255, 255, 0.8)";
 ChartConf.legend.labels.fontColor = "rgba(255, 255, 255, 0.8)";
 
 type GlobalStatsProps = {
@@ -106,8 +105,9 @@ const GlobalStats = (props: GlobalStatsProps) => {
                 data={{
                   labels: times,
                   datasets: Array.from(netCO2ByCountry.entries()).map(
-                    ([countryId, series]) => ({
+                    ([countryId, series], i) => ({
                       label: countriesById[countryId].name,
+                      fill: i === 0 ? "origin" : undefined,
                       data: series,
                       pointBorderWidth: 0,
                       backgroundColor: backgroundColors[countryId]
@@ -118,6 +118,9 @@ const GlobalStats = (props: GlobalStatsProps) => {
                   animation: { duration: 0 },
                   showLine: true,
                   spanGaps: true,
+                  elements: {
+                    line: { fill: "-1" }
+                  },
                   scales: {
                     xAxes: [
                       {
@@ -164,12 +167,12 @@ const GlobalStats = (props: GlobalStatsProps) => {
                         mode: "horizontal",
                         scaleID: "value-axis",
                         value: MIN_THRESHOLD,
-                        borderColor: "rgba(253, 106, 2, 0.3)",
+                        borderColor: "rgba(253, 106, 2, 0.7)",
                         borderWidth: 2,
                         label: {
                           content: "+1.5°C",
                           enabled: true,
-                          backgroundColor: "rgba(253, 106, 2, 0.7)"
+                          backgroundColor: "rgba(253, 106, 2, 0.8)"
                         }
                       },
                       {
