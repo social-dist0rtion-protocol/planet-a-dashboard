@@ -18,7 +18,6 @@
     "react-bootstrap": "^1.0.0-beta.9",
     "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.6",
-    "react-pullload": "^1.2.0",
     "react-scripts": "3.0.1",
     "typescript": "3.5.3"
   },

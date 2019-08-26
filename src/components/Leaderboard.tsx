@@ -7,8 +7,8 @@ import numeral from "numeral";
 type LeaderboardProps = {
   countries: Map<string, Country>;
   players: { [id: string]: Player };
-  trees: Array<[string, string]>;
-  emissions: Array<[string, string]>;
+  trees: string[][];
+  emissions: string[][];
 };
 
 const unknownPlayer = { name: "Mr. Mysterious", event: "???" };

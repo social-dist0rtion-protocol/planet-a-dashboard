@@ -18,9 +18,9 @@ export type LeaderboardResponse = {
   lastUpdate: number;
   goeMillisCirculating: number;
   players: { [id: string]: Player };
-  trees: Array<[string, string]>;
-  emissions: Array<[string, string]>;
-  netCO2History: { [countryId: string]: Array<[string, string]> };
+  trees: string[][];
+  emissions: string[][];
+  netCO2History: { [countryId: string]: string[][] };
   co2ByCountry: { [countryId: string]: string };
   treesByCountry: { [countryId: string]: string };
 };

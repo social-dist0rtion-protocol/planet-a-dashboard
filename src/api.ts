@@ -1,5 +1,6 @@
 import { LeaderboardResponse, Country } from "./types";
 import countryList from "./countries.json";
+import stats from "./assets/stats.json";
 
 const env = process.env.NODE_ENV || "development";
 
@@ -33,9 +34,12 @@ const fetchJson = async (call: () => Promise<Response>) => {
 };
 
 export const getLeaderboard = async () => {
-  const response: LeaderboardResponse | undefined = await fetchJson(() =>
-    get(`/stats${lastUpdate ? `?from=${lastUpdate}` : ""}`)
-  );
-  if (response) lastUpdate = response.lastUpdate;
-  return response;
+  // showing the offline stats of our session from August 2019
+  return stats;
+  // const response: LeaderboardResponse | undefined = await fetchJson(() =>
+  //   get(`/stats${lastUpdate ? `?from=${lastUpdate}` : ""}`)
+  // );
+  // const response = stats;
+  // if (response) lastUpdate = response.lastUpdate;
+  // return response;
 };
