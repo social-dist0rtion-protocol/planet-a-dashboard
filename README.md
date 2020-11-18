@@ -2,6 +2,12 @@
 
 A web viewer for [Planet A](https://github.com/social-dist0rtion-protocol/planet-a).
 
+The dashboard is reachable at https://planet-a.github.io/, with data frozen from the moment [the game at CCCamp 2019](https://events.ccc.de/camp/2019/wiki/Projects:Planet_A_%E2%80%94_The_Tragedy_of_the_CO%E2%82%82mmons) ended.
+
+![A screenshot of the dashboard](github/screenshot.jpg)
+
+## Development
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
