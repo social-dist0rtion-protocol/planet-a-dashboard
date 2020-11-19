@@ -6,6 +6,8 @@ The dashboard is reachable at https://planet-a.github.io/, with data frozen from
 
 ![A screenshot of the dashboard](github/screenshot.jpg)
 
+Curious about the game? Read [our blog post about it](https://www.dist0rtion.com/2019/09/18/planet-a-ccc-ethberlin-recap/)!
+
 ## Development
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
